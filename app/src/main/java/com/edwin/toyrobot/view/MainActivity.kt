@@ -15,7 +15,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         val toyRobot = ToyRobot()
-        toyRobot.place(Pose(Point(1, 2), Direction.East))
+        toyRobot.place(Pose(Point(5, 5), Direction.East))
         toyRobot.move()
         toyRobot.move()
         toyRobot.left()

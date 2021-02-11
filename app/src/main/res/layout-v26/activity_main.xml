@@ -48,6 +48,7 @@
             android:layout_marginEnd="20dp"
             android:layout_marginRight="20dp"
             android:layout_marginBottom="20dp"
+            android:tooltipText="@string/send_commands_btn"
             android:background="?attr/selectableItemBackgroundBorderless"
             android:clickable="true"
             android:contentDescription="@string/send_commands_btn"

@@ -47,6 +47,9 @@ class ToyRobot(private var currentPose: Pose? = null) : ControllableBot {
     }
 
     override fun report(): String {
+        if(currentPose == null)
+            return "Robot not on table."
+
         return currentPose.toString()
     }
 }
