@@ -12,23 +12,23 @@ class ToyRobot(private var currentPose: Pose? = null) : ControllableBot {
     override fun move() {
         val pose = currentPose ?: return
 
-        if (pose.position.x == 5 && pose.direction == Direction.East)
+        if (pose.position.x == 5 && pose.direction == Direction.EAST)
             return
 
-        if (pose.position.y == 5 && pose.direction == Direction.North)
+        if (pose.position.y == 5 && pose.direction == Direction.NORTH)
             return
 
-        if (pose.position.x == 0 && pose.direction == Direction.West)
+        if (pose.position.x == 0 && pose.direction == Direction.WEST)
             return
 
-        if (pose.position.y == 0 && pose.direction == Direction.South)
+        if (pose.position.y == 0 && pose.direction == Direction.SOUTH)
             return
 
         when (pose.direction) {
-            Direction.North -> pose.position.y++
-            Direction.South -> pose.position.y--
-            Direction.West -> pose.position.x--
-            Direction.East -> pose.position.x++
+            Direction.NORTH -> pose.position.y++
+            Direction.SOUTH -> pose.position.y--
+            Direction.WEST -> pose.position.x--
+            Direction.EAST -> pose.position.x++
         }
 
         currentPose = pose

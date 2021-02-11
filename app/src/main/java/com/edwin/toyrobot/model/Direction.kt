@@ -1,26 +1,26 @@
 package com.edwin.toyrobot.model
 
 enum class Direction{
-    North,
-    South,
-    West,
-    East;
+    NORTH,
+    SOUTH,
+    WEST,
+    EAST;
 
     fun left(): Direction{
         return when(this){
-            North -> West
-            South -> East
-            West -> South
-            East -> North
+            NORTH -> WEST
+            SOUTH -> EAST
+            WEST -> SOUTH
+            EAST -> NORTH
         }
     }
 
     fun right(): Direction{
         return when(this){
-            North -> East
-            South -> West
-            West -> North
-            East -> South
+            NORTH -> EAST
+            SOUTH -> WEST
+            WEST -> NORTH
+            EAST -> SOUTH
         }
     }
 }
