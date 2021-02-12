@@ -3,12 +3,9 @@ package com.edwin.toyrobot.presenter
 import android.content.ContentResolver
 import android.content.Intent
 import android.graphics.Point
-import android.util.Log
-import android.widget.Toast
 import com.edwin.toyrobot.model.*
 import java.io.BufferedReader
 import java.io.InputStreamReader
-import java.lang.IllegalArgumentException
 
 class MainActivityPresenter(private var mainActivityView: MainActivityView) {
 
@@ -21,7 +18,7 @@ class MainActivityPresenter(private var mainActivityView: MainActivityView) {
         mainActivityView.updateLog("###OUTPUT###")
 
         val toyRobot = ToyRobot()
-        val commands: List<String> = getCommandsAsList(commandsString)
+        val commands: List<String> = breakCommandsIntoList(commandsString)
         val commandsIterator = commands.listIterator()
 
         while (commandsIterator.hasNext()) {
@@ -66,7 +63,7 @@ class MainActivityPresenter(private var mainActivityView: MainActivityView) {
         )
     }
 
-    private fun getCommandsAsList(string: String): List<String> {
+    private fun breakCommandsIntoList(string: String): List<String> {
         return string.split(CommandConsts.COMMAND_SEPARATOR.toRegex())
     }
 

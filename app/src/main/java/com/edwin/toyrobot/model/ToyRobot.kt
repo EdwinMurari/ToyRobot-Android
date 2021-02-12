@@ -12,26 +12,23 @@ class ToyRobot(private var currentPose: Pose? = null) : ControllableBot {
     override fun move() {
         val pose = currentPose ?: return
 
-        if (pose.position.x == 5 && pose.direction == Direction.EAST)
-            return
+        when {
+            pose.position.x == 5 && pose.direction == Direction.EAST -> return
+            pose.position.y == 5 && pose.direction == Direction.NORTH -> return
+            pose.position.x == 0 && pose.direction == Direction.WEST -> return
+            pose.position.y == 0 && pose.direction == Direction.SOUTH -> return
+            else -> {
+                when (pose.direction) {
+                    Direction.NORTH -> pose.position.y++
+                    Direction.SOUTH -> pose.position.y--
+                    Direction.WEST -> pose.position.x--
+                    Direction.EAST -> pose.position.x++
+                }
 
-        if (pose.position.y == 5 && pose.direction == Direction.NORTH)
-            return
-
-        if (pose.position.x == 0 && pose.direction == Direction.WEST)
-            return
-
-        if (pose.position.y == 0 && pose.direction == Direction.SOUTH)
-            return
-
-        when (pose.direction) {
-            Direction.NORTH -> pose.position.y++
-            Direction.SOUTH -> pose.position.y--
-            Direction.WEST -> pose.position.x--
-            Direction.EAST -> pose.position.x++
+                currentPose = pose
+            }
         }
 
-        currentPose = pose
     }
 
     override fun left() {
@@ -47,7 +44,7 @@ class ToyRobot(private var currentPose: Pose? = null) : ControllableBot {
     }
 
     override fun report(): String {
-        if(currentPose == null)
+        if (currentPose == null)
             return "Robot not on table."
 
         return currentPose.toString()

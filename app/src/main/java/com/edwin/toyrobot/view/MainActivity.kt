@@ -7,9 +7,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.edwin.toyrobot.R
 import com.edwin.toyrobot.presenter.MainActivityPresenter
-import com.google.android.material.tabs.TabLayout
 import kotlinx.android.synthetic.main.activity_main.*
-import java.lang.Exception
 import java.util.*
 
 class MainActivity : AppCompatActivity(), MainActivityPresenter.MainActivityView {
