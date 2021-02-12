@@ -3,10 +3,12 @@ package com.edwin.toyrobot.presenter
 import android.content.ContentResolver
 import android.content.Intent
 import android.graphics.Point
+import android.util.Log
 import android.widget.Toast
 import com.edwin.toyrobot.model.*
 import java.io.BufferedReader
 import java.io.InputStreamReader
+import java.lang.IllegalArgumentException
 
 class MainActivityPresenter(private var mainActivityView: MainActivityView) {
 
@@ -14,9 +16,9 @@ class MainActivityPresenter(private var mainActivityView: MainActivityView) {
         if (commandsString == "")
             return
 
-        mainActivityView.updateLog("\nINPUT:")
+        mainActivityView.updateLog("\n###INPUT###")
         mainActivityView.updateLog(commandsString)
-        mainActivityView.updateLog("OUTPUT:")
+        mainActivityView.updateLog("###OUTPUT###")
 
         val toyRobot = ToyRobot()
         val commands: List<String> = getCommandsAsList(commandsString)
@@ -34,23 +36,29 @@ class MainActivityPresenter(private var mainActivityView: MainActivityView) {
     }
 
     private fun runCommand(bot: ControllableBot, command: String, parameterString: String? = null) {
-        // TODO :: Handle invalid commands
-        if (command == CommandConsts.PLACE && parameterString != null)
-            bot.place(getPoseFromParameter(parameterString))
-        else if (command == CommandConsts.MOVE)
-            bot.move()
-        else if (command == CommandConsts.LEFT)
-            bot.left()
-        else if (command == CommandConsts.RIGHT)
-            bot.right()
-        else if (command == CommandConsts.REPORT)
-            mainActivityView.updateLog("Reporting pose: ${bot.report()}")
+        when {
+            command == CommandConsts.PLACE && parameterString != null -> {
+                try {
+                    bot.place(getPoseFromParameter(parameterString))
+                } catch (exception: IllegalArgumentException) {
+                    mainActivityView.updateLog("INVALID PARAMETER {$parameterString} for {$command}")
+                }
+            }
+            command == CommandConsts.MOVE -> bot.move()
+            command == CommandConsts.LEFT -> bot.left()
+            command == CommandConsts.RIGHT -> bot.right()
+            command == CommandConsts.REPORT -> mainActivityView.updateLog("Reporting pose: ${bot.report()}")
+            else -> mainActivityView.updateLog("INVALID COMMAND: {$command}")
+        }
     }
 
+    @Throws(IllegalArgumentException::class)
     private fun getPoseFromParameter(parameterString: String): Pose {
-        // TODO :: Handle invalid parameters
         val parameters: List<String> =
             parameterString.split(CommandConsts.PARAM_SEPARATOR.toRegex())
+
+        if (parameters.size != 3)
+            throw IllegalArgumentException()
 
         return Pose(
             Point(parameters[0].toInt(), parameters[1].toInt()),
