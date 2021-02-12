@@ -1,13 +1,19 @@
 package com.edwin.toyrobot.presenter
 
+import android.content.ContentResolver
+import android.content.Intent
 import android.graphics.Point
-import android.util.Log
+import android.widget.Toast
 import com.edwin.toyrobot.model.*
-import java.util.*
+import java.io.BufferedReader
+import java.io.InputStreamReader
 
 class MainActivityPresenter(private var mainActivityView: MainActivityView) {
 
     fun processCommands(commandsString: String) {
+        if (commandsString == "")
+            return
+
         mainActivityView.updateLog("\nINPUT:")
         mainActivityView.updateLog(commandsString)
         mainActivityView.updateLog("OUTPUT:")
@@ -23,6 +29,8 @@ class MainActivityPresenter(private var mainActivityView: MainActivityView) {
             else
                 runCommand(toyRobot, command)
         }
+
+        mainActivityView.clearCommandTextBox()
     }
 
     private fun runCommand(bot: ControllableBot, command: String, parameterString: String? = null) {
@@ -54,7 +62,25 @@ class MainActivityPresenter(private var mainActivityView: MainActivityView) {
         return string.split(CommandConsts.COMMAND_SEPARATOR.toRegex())
     }
 
+    @Throws(Exception::class)
+    fun readFile(intent: Intent?, contentResolver: ContentResolver) {
+        try {
+            intent?.data?.let {
+                contentResolver.openInputStream(it)
+            }?.let {
+                val bufferedReader = BufferedReader(InputStreamReader(it))
+                while (true) {
+                    val line: String? = bufferedReader.readLine() ?: break
+                    line?.let { processCommands(line) }
+                }
+            }
+        } catch (exception: Exception) {
+            throw exception
+        }
+    }
+
     interface MainActivityView {
         fun updateLog(data: String)
+        fun clearCommandTextBox()
     }
 }
