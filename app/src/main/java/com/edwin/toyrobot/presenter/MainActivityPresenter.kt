@@ -3,10 +3,15 @@ package com.edwin.toyrobot.presenter
 import android.graphics.Point
 import android.util.Log
 import com.edwin.toyrobot.model.*
+import java.util.*
 
 class MainActivityPresenter(private var mainActivityView: MainActivityView) {
 
     fun processCommands(commandsString: String) {
+        mainActivityView.updateLog("\nINPUT:")
+        mainActivityView.updateLog(commandsString)
+        mainActivityView.updateLog("OUTPUT:")
+
         val toyRobot = ToyRobot()
         val commands: List<String> = getCommandsAsList(commandsString)
         val commandsIterator = commands.listIterator()
@@ -21,6 +26,7 @@ class MainActivityPresenter(private var mainActivityView: MainActivityView) {
     }
 
     private fun runCommand(bot: ControllableBot, command: String, parameterString: String? = null) {
+        // TODO :: Handle invalid commands
         if (command == CommandConsts.PLACE && parameterString != null)
             bot.place(getPoseFromParameter(parameterString))
         else if (command == CommandConsts.MOVE)
@@ -30,16 +36,18 @@ class MainActivityPresenter(private var mainActivityView: MainActivityView) {
         else if (command == CommandConsts.RIGHT)
             bot.right()
         else if (command == CommandConsts.REPORT)
-            Log.e("TEST", "OUTPUT: ${bot.report()}")
+            mainActivityView.updateLog("Reporting pose: ${bot.report()}")
     }
 
     private fun getPoseFromParameter(parameterString: String): Pose {
-        val parameters: List<String> = parameterString.split(CommandConsts.PARAM_SEPARATOR.toRegex())
-        Log.e("TEST", "params ${Direction.valueOf(parameters[2])}")
+        // TODO :: Handle invalid parameters
+        val parameters: List<String> =
+            parameterString.split(CommandConsts.PARAM_SEPARATOR.toRegex())
 
         return Pose(
-                Point(parameters[0].toInt(), parameters[1].toInt()),
-                Direction.valueOf(parameters[2]))
+            Point(parameters[0].toInt(), parameters[1].toInt()),
+            Direction.valueOf(parameters[2])
+        )
     }
 
     private fun getCommandsAsList(string: String): List<String> {

@@ -1,27 +1,36 @@
 package com.edwin.toyrobot.view
 
-import android.graphics.Point
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
+import androidx.appcompat.app.AppCompatActivity
 import com.edwin.toyrobot.R
-import com.edwin.toyrobot.model.Direction
-import com.edwin.toyrobot.model.Pose
-import com.edwin.toyrobot.model.ToyRobot
 import com.edwin.toyrobot.presenter.MainActivityPresenter
+import kotlinx.android.synthetic.main.activity_main.*
+import java.util.*
 
 class MainActivity : AppCompatActivity(), MainActivityPresenter.MainActivityView {
+
     private lateinit var mainActivityPresenter: MainActivityPresenter
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
         mainActivityPresenter = MainActivityPresenter(this)
-        mainActivityPresenter.processCommands("PLACE 0,0,NORTH MOVE REPORT Output: 0,1,NORTH")
+
+        send_commands_btn.setOnClickListener {
+            val commandText: String = command_et.text.toString()
+
+            if (commandText == "")
+                return@setOnClickListener
+
+            mainActivityPresenter.processCommands(commandText.toUpperCase(Locale.getDefault()))
+            command_et.setText("")
+        }
     }
 
     override fun updateLog(data: String) {
-        TODO("Not yet implemented")
+        val currentLogString = "${log_data_tv.text}\n$data"
+        log_data_tv.text = currentLogString
     }
 }

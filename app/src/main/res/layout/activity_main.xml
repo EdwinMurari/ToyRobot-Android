@@ -1,81 +1,107 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="match_parent"
     tools:context=".view.MainActivity">
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/info_lyt"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginHorizontal="20dp"
-        android:layout_marginTop="80dp"
-        android:background="@drawable/view_background"
-        app:layout_constraintDimensionRatio="1:1"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
-
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/command_lyt"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginHorizontal="20dp"
-        android:layout_marginTop="20dp"
-        android:background="@drawable/view_background"
-        app:layout_constraintTop_toBottomOf="@id/info_lyt">
+        android:layout_height="wrap_content">
 
-        <EditText
-            android:id="@+id/command_et"
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/info_lyt"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:autofillHints="no"
-            android:background="@null"
-            android:hint="@string/command_hint"
-            android:inputType="textMultiLine"
-            android:padding="20dp"
+            android:layout_height="0dp"
+            android:layout_marginHorizontal="20dp"
+            android:layout_marginTop="50dp"
+            android:background="@drawable/view_background"
+            app:layout_constraintBottom_toTopOf="@id/command_lyt"
+            app:layout_constraintDimensionRatio="1:1"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent">
 
-        <ImageView
+            <ScrollView
+                android:nestedScrollingEnabled="true"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:fillViewport="true"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <TextView
+                    android:id="@+id/log_data_tv"
+                    android:layout_width="match_parent"
+                    android:textSize="14sp"
+                    android:layout_height="wrap_content"
+                    android:padding="20dp" />
+            </ScrollView>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/command_lyt"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="20dp"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/view_background"
+            app:layout_constraintBottom_toTopOf="@id/or_tv"
+            app:layout_constraintTop_toBottomOf="@id/info_lyt">
+
+            <EditText
+                android:id="@+id/command_et"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:autofillHints="no"
+                android:background="@null"
+                android:hint="@string/command_hint"
+                android:inputType="textMultiLine"
+                android:padding="20dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <ImageView
+                android:id="@+id/send_commands_btn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="20dp"
+                android:layout_marginRight="20dp"
+                android:layout_marginBottom="20dp"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:clickable="true"
+                android:contentDescription="@string/send_commands_btn"
+                android:focusable="true"
+                android:src="@drawable/ic_send_white"
+                android:tooltipText="@string/send_commands_btn"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <TextView
+            android:id="@+id/or_tv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="20dp"
-            android:layout_marginRight="20dp"
-            android:layout_marginBottom="20dp"
-            android:background="?attr/selectableItemBackgroundBorderless"
-            android:clickable="true"
-            android:contentDescription="@string/send_commands_btn"
-            android:focusable="true"
-            android:src="@drawable/ic_send_white"
+            android:layout_marginTop="20dp"
+            android:text="@string/or"
+            app:layout_constraintBottom_toTopOf="@id/attach_commands_btn"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/command_lyt" />
+
+        <Button
+            android:id="@+id/attach_commands_btn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="20dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="80dp"
+            android:text="@string/send_commands_from_file"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent" />
+            app:layout_constraintTop_toBottomOf="@id/or_tv" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <TextView
-        android:id="@+id/or_tv"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:text="@string/or"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/command_lyt" />
-
-    <Button
-        android:id="@+id/attach_commands_btn"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginHorizontal="20dp"
-        android:layout_marginTop="20dp"
-        android:layout_marginBottom="80dp"
-        android:text="@string/send_commands_from_file"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/or_tv" />
-
-</androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>
