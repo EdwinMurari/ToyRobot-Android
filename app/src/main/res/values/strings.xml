@@ -2,6 +2,9 @@
     <string name="app_name">ToyRobot</string>
     <string name="command_hint">Enter commands</string>
     <string name="send_commands_btn">Send commands</string>
-    <string name="send_commands_from_file">Send commands from file</string>
+    <string name="send_commands_from_file">From file</string>
     <string name="or">OR</string>
+    <string name="send_commands_info">Send commands to the robot by entering them into the textbox below or from a file</string>
+    <string name="tab_graph">Graph</string>
+    <string name="tab_log">Log</string>
 </resources>

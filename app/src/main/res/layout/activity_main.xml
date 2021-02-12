@@ -10,24 +10,50 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/info_lyt"
+        <com.google.android.material.tabs.TabLayout
+            android:id="@+id/tab_lyt"
             android:layout_width="0dp"
-            android:layout_height="0dp"
+            android:layout_height="wrap_content"
             android:layout_marginHorizontal="20dp"
-            android:layout_marginTop="50dp"
-            android:background="@drawable/view_background"
-            app:layout_constraintBottom_toTopOf="@id/command_lyt"
-            app:layout_constraintDimensionRatio="1:1"
+            android:layout_marginTop="20dp"
+            app:layout_constraintBottom_toTopOf="@id/info_lyt"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
+            <com.google.android.material.tabs.TabItem
+                android:id="@+id/tab_graph"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/tab_graph" />
+
+            <com.google.android.material.tabs.TabItem
+                android:id="@+id/tab_log"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/tab_log" />
+        </com.google.android.material.tabs.TabLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/info_lyt"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:animateLayoutChanges="true"
+            android:layout_marginHorizontal="20dp"
+            android:background="@drawable/view_background"
+            app:layout_constraintBottom_toTopOf="@id/info_tv"
+            app:layout_constraintDimensionRatio="1:1"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tab_lyt">
+
             <ScrollView
-                android:nestedScrollingEnabled="true"
+                android:id="@+id/log_lyt"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:background="#00ff00"
                 android:fillViewport="true"
+                android:nestedScrollingEnabled="true"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent">
@@ -35,11 +61,33 @@
                 <TextView
                     android:id="@+id/log_data_tv"
                     android:layout_width="match_parent"
-                    android:textSize="14sp"
                     android:layout_height="wrap_content"
-                    android:padding="20dp" />
+                    android:padding="20dp"
+                    android:textSize="14sp" />
             </ScrollView>
+
+            <View
+                android:id="@+id/graph_lyt"
+                android:layout_width="0dp"
+                android:background="#ff0000"
+                android:layout_height="0dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
         </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <TextView
+            android:id="@+id/info_tv"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="20dp"
+            android:layout_marginTop="20dp"
+            android:text="@string/send_commands_info"
+            app:layout_constraintBottom_toTopOf="@id/command_lyt"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/info_lyt" />
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/command_lyt"
@@ -47,9 +95,9 @@
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="20dp"
             android:layout_marginTop="20dp"
-            android:background="@drawable/view_background"
+            android:background="@drawable/textbox_background"
             app:layout_constraintBottom_toTopOf="@id/or_tv"
-            app:layout_constraintTop_toBottomOf="@id/info_lyt">
+            app:layout_constraintTop_toBottomOf="@id/info_tv">
 
             <EditText
                 android:id="@+id/command_et"
@@ -85,7 +133,8 @@
             android:id="@+id/or_tv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp"
             android:text="@string/or"
             app:layout_constraintBottom_toTopOf="@id/attach_commands_btn"
             app:layout_constraintEnd_toEndOf="parent"
@@ -97,7 +146,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="20dp"
-            android:layout_marginTop="20dp"
             android:layout_marginBottom="80dp"
             android:text="@string/send_commands_from_file"
             app:layout_constraintBottom_toBottomOf="parent"

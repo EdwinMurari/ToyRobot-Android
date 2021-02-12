@@ -54,16 +54,6 @@ class MainActivityPresenter(private var mainActivityView: MainActivityView) {
         return string.split(CommandConsts.COMMAND_SEPARATOR.toRegex())
     }
 
-    fun testRobot() {
-        val toyRobot = ToyRobot()
-        toyRobot.place(Pose(Point(5, 5), Direction.EAST))
-        toyRobot.move()
-        toyRobot.move()
-        toyRobot.left()
-        toyRobot.move()
-        Log.e("TEST", "Reporting current pose: ${toyRobot.report()}")
-    }
-
     interface MainActivityView {
         fun updateLog(data: String)
     }
